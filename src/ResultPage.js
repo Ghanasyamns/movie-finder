@@ -21,7 +21,6 @@ function ResultPage(props) {
       const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${name}`;
       const respData = await axios.get(url);
       setMovieData(respData.data.results);
-      console.log(respData.data);
     };
     moviefetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -39,17 +38,39 @@ function ResultPage(props) {
       </div>
     );
   });
-  if (!movieData) {
+
+  if (movieData.length === 0) {
     return (
-      <div className="errorText">
-        <h1 style={{ color: "red", margin: "50px" }}>Loading.....</h1>
-      </div>
-    );
-  } else if (movieData.length === 0) {
-    return (
-      <div className="errorText">
-        <h1 style={{ color: "red", margin: "50px" }}>No image fetched.....</h1>
-      </div>
+      <>
+        <div className="tv-layout">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="span12">
+                <div className="nav-row">
+                  <div
+                    onClick={() => props.history.goBack()}
+                    className="round-box back-arrow"
+                  >
+                    <img src={backArr} alt="..." />
+                  </div>
+
+                  <div
+                    onClick={() => props.history.goBack()}
+                    className="round-box close-icon"
+                  >
+                    <img src={closeArr} alt="..." />
+                  </div>
+                </div>
+                <div className="errorText">
+                  <h1 style={{ color: "red", margin: "100px" }}>
+                    No image fetched.....
+                  </h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
     );
   }
   return (

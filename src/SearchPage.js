@@ -45,22 +45,6 @@ function SearchPage(props) {
       <div className="container-fluid">
         <div className="row">
           <div className="span12">
-            {/* <div className="nav-row">
-              <div
-                onClick={() => props.history.goBack()}
-                className="round-box back-arrow"
-              >
-                <img alt="..." src={backArr} />
-              </div>
-
-              <div
-                onClick={() => props.history.goBack()}
-                className="round-box close-icon"
-              >
-                <img alt="..." src={closeArr} />
-              </div>
-            </div> */}
-
             <div className="tv-data-row">
               <div className="col-12">
                 <div className="seach-box">
@@ -68,7 +52,6 @@ function SearchPage(props) {
                     <span className="input-search">
                       <img alt="..." src={inputIcon} />
                     </span>
-                    {/* <form onSubmit={inputSubmit}> */}
                     <input
                       id="movieInput"
                       onChange={(e) => {
@@ -81,7 +64,6 @@ function SearchPage(props) {
                       aria-label="Username"
                       aria-describedby="basic-addon1"
                     />
-                    {/* </form> */}
                   </div>
                 </div>
 
