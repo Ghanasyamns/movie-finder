@@ -30,6 +30,7 @@ function ResultPage(props) {
       <div key={i} className="item">
         <a href="...">
           <img
+            className="img-poster"
             src={`https://image.tmdb.org/t/p/w500/${data.poster_path}`}
             alt="poster"
           />
