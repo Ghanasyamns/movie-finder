@@ -65,6 +65,9 @@
   .tv-data-row {
     padding: 60px 15px 0px 15px;
   }
+  .round-box:hover {
+    cursor: pointer;
+  }
 }
 
 @media (max-width: 1023px) {

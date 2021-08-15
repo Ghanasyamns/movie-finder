@@ -9,11 +9,11 @@ import "./assets/css/tv.css";
 import "./assets/css/responsive.css";
 import inputIcon from "./assets/images/icons/search-icon.png";
 import searchIcon from "./assets/images/icons/reload-icon.png";
-import reloadIcon from "./assets/images/icons/reload-icon.png";
 import clearIcon from "./assets/images/icons/clear-icon.png";
 function SearchPage(props) {
   const [name, setName] = useState("");
-
+  let searchhist;
+  let displayHist;
   const keyboardCheck = (value) => {
     let alphabets = document.getElementById("showAlphabets");
     let numbers = document.getElementById("showNumbers");
@@ -39,7 +39,34 @@ function SearchPage(props) {
     }
     setName(inputBtn.value);
   };
+  const keySubmit = () => {
+    alert("Search input field is empty");
+  };
+  const addToHistory = () => {
+    // let histArr = [];
+    // histArr.push(name);
+    // localStorage.setItem("history", JSON.stringify());
 
+    let saveArr = JSON.parse(localStorage.getItem("history") || "[]");
+    saveArr.push(name);
+    localStorage.setItem("history", JSON.stringify(saveArr));
+  };
+  if (JSON.parse(localStorage.getItem("history"))) {
+    searchhist = JSON.parse(localStorage.getItem("history"))
+      .reverse()
+      .slice(0, 5);
+  }
+
+  displayHist = searchhist?.map((item, i) => {
+    return (
+      <div key={i} className="seach-item">
+        <span>
+          <img alt="..." src={searchIcon} />
+          {item}
+        </span>
+      </div>
+    );
+  });
   return (
     <div className="tv-layout">
       <div className="container-fluid">
@@ -70,34 +97,7 @@ function SearchPage(props) {
                 <div className="search-block-iteams">
                   <div className="recent-search">
                     <h1>Recent Search Iteams</h1>
-
-                    <div className="seach-item">
-                      <span>
-                        <img alt="..." src={searchIcon} />
-                        Jathi Ratnalu Movie
-                      </span>
-                    </div>
-
-                    <div className="seach-item">
-                      <span>
-                        <img alt="..." src={reloadIcon} />
-                        Kids English Telugu Dubbed Movies
-                      </span>
-                    </div>
-
-                    <div className="seach-item">
-                      <span>
-                        <img alt="..." src={reloadIcon} />
-                        3D Animation Movies
-                      </span>
-                    </div>
-
-                    <div className="seach-item">
-                      <span>
-                        <img alt="..." src={reloadIcon} />
-                        Action Movies in Telugu 2020
-                      </span>
-                    </div>
+                    {displayHist}
                   </div>
 
                   <div
@@ -194,20 +194,25 @@ function SearchPage(props) {
                       <span className="space-clear">
                         <button onClick={() => keyInput("CLEAR")}>CLEAR</button>
                       </span>
-
-                      <span className="search-btn">
-                        <Link to={`/result/${name}`}>
-                          <button type="submit">SEARCH</button>
-                        </Link>
-                      </span>
+                      {name ? (
+                        <span className="search-btn">
+                          <Link to={`/result/${name}`}>
+                            <button onClick={addToHistory} type="submit">
+                              SEARCH
+                            </button>
+                          </Link>
+                        </span>
+                      ) : (
+                        <span className="search-btn">
+                          <button onClick={keySubmit} type="submit">
+                            SEARCH
+                          </button>
+                        </span>
+                      )}
                     </div>
                   </div>
                   {/*  */}
-                  <div
-                    className="key-board-box"
-                    id="showAlphabets"
-                    // style={{ display: "block" }}
-                  >
+                  <div className="key-board-box" id="showAlphabets">
                     <div className="key-board-row">
                       <span className="key">
                         <button value={"A"} onClick={() => keyInput("a")}>
@@ -333,12 +338,21 @@ function SearchPage(props) {
                       <span className="space-clear">
                         <button onClick={() => keyInput("CLEAR")}>CLEAR</button>
                       </span>
-
-                      <span className="search-btn">
-                        <Link to={`/result/${name}`}>
-                          <button type="submit">SEARCH</button>
-                        </Link>
-                      </span>
+                      {name ? (
+                        <span className="search-btn">
+                          <Link to={`/result/${name}`}>
+                            <button onClick={addToHistory} type="submit">
+                              SEARCH
+                            </button>
+                          </Link>
+                        </span>
+                      ) : (
+                        <span className="search-btn">
+                          <button onClick={keySubmit} type="submit">
+                            SEARCH
+                          </button>
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
